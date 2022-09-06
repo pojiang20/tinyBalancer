@@ -1,5 +1,16 @@
 package balancer
 
+import "errors"
+
+const (
+	RandomBalancer = "random"
+)
+
+var (
+	NoHostError                = errors.New("no host")
+	AlgorithmNotSupportedError = errors.New("algorithm not supported")
+)
+
 type Balancer interface {
 	Add(string)
 	Remove(string)

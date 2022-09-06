@@ -3,6 +3,7 @@ package proxy
 import (
 	"fmt"
 	"github.com/labstack/gommon/log"
+	"github.com/tinybalancer/balancer"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -38,7 +39,9 @@ func NewHTTPProxy(targetHosts []string, algorithm string) (*HTTPProxy, error) {
 		}
 		proxy := httputil.NewSingleHostReverseProxy(url)
 
+		//暂存原来的Director
 		originDirector := proxy.Director
+		//重新定义新的func，其中包含了原来的Director
 		proxy.Director = func(req *http.Request) {
 			originDirector(req)
 			req.Header.Set(XProxy, ReverseProxy)
