@@ -3,7 +3,8 @@ package balancer
 import "errors"
 
 const (
-	RandomBalancer = "random"
+	RandomBalancer         = "random"
+	CONSISTENTHASHBALANCER = "consistent_hash"
 )
 
 var (
